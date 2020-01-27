@@ -29,7 +29,9 @@ describe GameManager do
       expectation = expect { @manager.send(:next_turn) }
       expectation.to output(/wins/).to_stdout
     end
+  end
 
+  context '#play' do
     it 'outputs draw string' do
       allow(@manager).to receive(:gets).at_least(40).times.and_return(
         '0', '1', '2', '3', '4', '5', '6', \
