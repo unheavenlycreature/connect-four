@@ -2,14 +2,16 @@ require_relative 'board'
 
 # Manages a game of ConnectFour.
 class GameManager
-  def initialize
-    @board = ConnectFourBoard.new
+  def initialize(board)
+    @board = board
     @current_piece = '⚪'
   end
 
   def play
     40.times do
-      next_turn
+      winning_turn = next_turn
+      return if winning_turn
+
       switch_piece
     end
     puts @board
@@ -25,8 +27,9 @@ class GameManager
     if @board.four_in_a_row?(@current_piece)
       puts @board
       puts "#{@current_piece}  wins!"
-      exit
+      return true
     end
+    false
   end
 
   def make_move
